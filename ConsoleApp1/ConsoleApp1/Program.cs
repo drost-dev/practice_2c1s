@@ -91,7 +91,7 @@ int wordsAmount = 1;
 
 Console.WriteLine($"s = \"{s}\"");
 
-foreach (var c in s)
+foreach (char c in s)
 {
     if (c == ' ') wordsAmount++;
 }

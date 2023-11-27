@@ -57,13 +57,31 @@ for (int i = 0; i < n; i++)
 //-----------------------------------------------------------------------------
 
 /*  №4
- 
-*/
+static int[] avgTemperature(int[,] temperature)
+{
+    int[] avgTemps = new int[12];
+    int sum = 0;
+    
+    for (int i = 0; i < 12; i++)
+    {
+        for (int j = 0; j < 30; j++)
+        {
+            sum += temperature[j, i];
+        }
+
+        avgTemps[i] = sum / 30;
+        sum = 0;
+    }
+
+    return avgTemps;
+}
+
+
 
 Random r = new Random();
 int months = 12;
 int days = 30;
-int[,] temperature = new int[months, days];
+int[,] temperature = new int[days, months];
 int min = -35;
 int max = -20;
 
@@ -71,16 +89,18 @@ for (int i = 0; i < months; i++)
 {
     for (int j = 0; j < days; j++)
     {
-        temperature[i, j] = r.Next(min, max);
+        temperature[j,i] = r.Next(min, max);
     }
-
+    
     min = i < 6 ? min += 10 : min -= 10;
     max = i < 6 ? max += 9 : max -= 9;
 }
 
-for (int i = 0; i < months; i++)
+Console.WriteLine("Ежедневная температура за год:");
+
+for (int i = 0; i < days; i++)
 {
-    for (int j = 0; j < days; j++)
+    for (int j = 0; j < months; j++)
     {
         Console.Write($"{temperature[i, j]} ");
     }
@@ -88,33 +108,98 @@ for (int i = 0; i < months; i++)
     Console.WriteLine();
 }
 
+int[] avgTemps = avgTemperature(temperature);
 
+Console.WriteLine("Средняя температура по месяцам:");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-for (int i = 0; i < months; i++)
+for (int i = 0; i < 12; i++)
 {
-    for (int j = 0; j < days; j++)
+    Console.Write($"{avgTemps[i]} ");
+}
+
+Console.WriteLine();
+
+Array.Sort(avgTemps);
+
+Console.WriteLine("Отсортированная средняя температура по месяцам:");
+
+for (int i = 0; i < 12; i++)
+{
+    Console.Write($"{avgTemps[i]} ");
+}
+*/
+
+//-----------------------------------------------------------------------------
+
+/*  №5
+static Dictionary<string, int> avgTemperature(Dictionary<string, int[]> dict)
+{
+    Dictionary<string, int> res = new Dictionary<string, int>();
+    int sum = 0;
+    
+    foreach (var month in dict)
     {
-        temperature[j, i] = r.Next(min, max);
-        Console.Write($"{temperature[j, i]}  ");
+        for (int i = 0; i < 30; i++)
+        {
+            sum += dict[month.Key][i];
+        }
+    
+        res.Add(month.Key, sum / 30);
+        sum = 0;
     }
 
-    min = i < 6 ? min += 8 : min -= 7;
-    max = i < 6 ? max += 8 : max -= 7;
+    return res;
+}
 
+
+
+Random r = new Random();
+Dictionary<string, int[]> monthsDictionary = new Dictionary<string, int[]>()
+{
+    ["January"] = new int[30],
+    ["February"] = new int[30],
+    ["March"] = new int[30],
+    ["April"] = new int[30],
+    ["May"] = new int[30],
+    ["June"] = new int[30],
+    ["July"] = new int[30],
+    ["August"] = new int[30],
+    ["September"] = new int[30],
+    ["October"] = new int[30],
+    ["November"] = new int[30],
+    ["December"] = new int[30]
+};
+
+int min = -35;
+int max = -20;
+int monthNum = 0;
+
+foreach (var month in monthsDictionary)
+{
+    for (int i = 0; i < 30; i++)
+    {
+        monthsDictionary[month.Key][i] = r.Next(min, max);
+    }
+    min = monthNum < 6 ? min += 10 : min -= 10;
+    max = monthNum < 6 ? max += 9 : max -= 9;
+    monthNum++;
+}
+
+Console.WriteLine("Ежедневная температура за год:");
+foreach (var month in monthsDictionary)
+{
+    for (int i = 0; i < 30; i++)
+    {
+        Console.Write($"{monthsDictionary[month.Key][i]} ");
+    }
     Console.WriteLine();
-}*/
+}
+
+Dictionary<string, int> avgTemps = avgTemperature(monthsDictionary);
+
+Console.WriteLine("Средняя температура по месяцам:");
+foreach (var month in avgTemps)
+{
+    Console.Write($"{avgTemps[month.Key]} ");
+}
+*/
