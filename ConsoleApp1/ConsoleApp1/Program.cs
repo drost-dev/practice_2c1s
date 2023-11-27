@@ -1,4 +1,6 @@
-﻿/*  №1
+﻿Console.WriteLine("uncomment code");
+
+/*  №1
 Random r = new Random();
 int[] arr = new int[10];
 int minIndex = 0;

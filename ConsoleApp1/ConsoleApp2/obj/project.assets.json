@@ -8,23 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\gr622_ezaal\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Andrey\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gr622_ezaal\\RiderProjects\\ConsoleApp1\\ConsoleApp2\\ConsoleApp2.csproj",
+      "projectUniqueName": "D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp2\\ConsoleApp2.csproj",
       "projectName": "ConsoleApp2",
-      "projectPath": "C:\\Users\\gr622_ezaal\\RiderProjects\\ConsoleApp1\\ConsoleApp2\\ConsoleApp2.csproj",
-      "packagesPath": "C:\\Users\\gr622_ezaal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gr622_ezaal\\RiderProjects\\ConsoleApp1\\ConsoleApp2\\obj\\",
+      "projectPath": "D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp2\\ConsoleApp2.csproj",
+      "packagesPath": "C:\\Users\\Andrey\\.nuget\\packages\\",
+      "outputPath": "D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp2\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gr622_ezaal\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Andrey\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -63,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Andrey\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }

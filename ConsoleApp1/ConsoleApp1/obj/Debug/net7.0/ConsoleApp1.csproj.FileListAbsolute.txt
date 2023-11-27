@@ -12,3 +12,18 @@ C:\Users\gr622_ezaal\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\refi
 C:\Users\gr622_ezaal\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.pdb
 C:\Users\gr622_ezaal\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.genruntimeconfig.cache
 C:\Users\gr622_ezaal\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ref\ConsoleApp1.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\bin\Debug\net7.0\ConsoleApp1.exe
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\bin\Debug\net7.0\ConsoleApp1.deps.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\bin\Debug\net7.0\ConsoleApp1.runtimeconfig.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\bin\Debug\net7.0\ConsoleApp1.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\bin\Debug\net7.0\ConsoleApp1.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.csproj.AssemblyReference.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.AssemblyInfoInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.AssemblyInfo.cs
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\refint\ConsoleApp1.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ConsoleApp1.genruntimeconfig.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp1\obj\Debug\net7.0\ref\ConsoleApp1.dll
