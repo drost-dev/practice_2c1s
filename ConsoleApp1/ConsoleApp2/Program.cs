@@ -1,4 +1,4 @@
-﻿//Console.WriteLine("uncomment code");
+﻿Console.WriteLine("uncomment code");
 
 /*  №1
 int[] arr = new int[100];
