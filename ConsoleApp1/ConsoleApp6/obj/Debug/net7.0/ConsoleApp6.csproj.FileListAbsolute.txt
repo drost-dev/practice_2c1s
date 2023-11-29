@@ -2,3 +2,18 @@ C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Deb
 C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.AssemblyInfoInputs.cache
 C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.AssemblyInfo.cs
 C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.csproj.CoreCompileInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.exe
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.deps.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.runtimeconfig.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.csproj.AssemblyReference.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.GeneratedMSBuildEditorConfig.editorconfig
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.AssemblyInfoInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.AssemblyInfo.cs
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.csproj.CoreCompileInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\refint\ConsoleApp6.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.genruntimeconfig.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ref\ConsoleApp6.dll
