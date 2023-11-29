@@ -18,7 +18,7 @@ Console.WriteLine(mult);
 //-----------------------------------------------------------------------------
 
 /*  №2
-string[] nums = File.ReadAllLines("D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp4\\numsTask2.txt")[0].Split(';');
+string[] nums = File.ReadAllLines("numsTask2.txt")[0].Split(';');
 double sum = 0;
 
 for (int i = 0; i < nums.Length; i++)
@@ -42,7 +42,7 @@ Console.WriteLine(Math.Round(sum, 4));
 //-----------------------------------------------------------------------------
 
 /*  №3
-string[] nums = File.ReadAllLines("D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp4\\numsTask3.txt")[0].Split(',');
+string[] nums = File.ReadAllLines("numsTask3.txt")[0].Split(',');
 int min = 101;
 int max = -101;
 
@@ -73,7 +73,7 @@ Console.WriteLine($"Отношение минимального элемента
 //-----------------------------------------------------------------------------
 
 /*  №4
-string[] nums = File.ReadAllLines("D:\\Rider\\Rider Projects\\practice_2c1s\\ConsoleApp1\\ConsoleApp4\\numsTask4.txt")[0].Split(' ');
+string[] nums = File.ReadAllLines("numsTask4.txt")[0].Split(' ');
 int sameNums = 1;
 int sameNumsMax = 0;
 int prevNum = 0;

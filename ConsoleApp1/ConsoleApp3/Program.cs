@@ -1,7 +1,7 @@
 ﻿Console.WriteLine("uncomment code");
 
 /*  №1
-string[] lines = File.ReadAllLines("C:\\Users\\gr622_ezaal\\RiderProjects\\practice_2c1s\\ConsoleApp1\\ConsoleApp3\\input.txt");
+string[] lines = File.ReadAllLines("input.txt");
 string[] luckyNums = lines[0].Split(' ');
 int ticketAmount = Convert.ToInt32(lines[1]);
 int winNums = 0;
@@ -35,9 +35,9 @@ for (int i = 2; i <= ticketAmount; i++)
 
 /*  №2
 List<string> numsList = 
-    File.ReadAllLines("C:\\Users\\gr622_ezaal\\RiderProjects\\practice_2c1s\\ConsoleApp1\\ConsoleApp3\\nums.txt")[0].Split(' ').ToList();
+    File.ReadAllLines("nums.txt")[0].Split(' ').ToList();
 StreamWriter writer =
-    new StreamWriter("C:\\Users\\gr622_ezaal\\RiderProjects\\practice_2c1s\\ConsoleApp1\\ConsoleApp3\\nums.txt", false);
+    new StreamWriter("nums.txt", false);
 
 for (int i = 0; i < numsList.Count; i++)
 {
@@ -61,7 +61,7 @@ writer.Close();
 //-----------------------------------------------------------------------------
 
 /*  №3
-string[] nums = File.ReadAllLines("C:\\Users\\gr622_ezaal\\RiderProjects\\practice_2c1s\\ConsoleApp1\\ConsoleApp3\\heights.txt")[0].Split(' ');
+string[] nums = File.ReadAllLines("heights.txt")[0].Split(' ');
 int maxV = 0;
 int V = 0;
 int line1 = 0;
