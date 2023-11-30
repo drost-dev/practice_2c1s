@@ -1,5 +1,5 @@
 ﻿// ReSharper disable CommentTypo
-//Console.WriteLine("uncomment code");
+Console.WriteLine("uncomment code");
 
 /*  №1
 string[] words = File.ReadAllLines("numsTask1.txt")[0].Split(' ');
@@ -122,7 +122,53 @@ for (int i = 0; i < n; i++)
 //-----------------------------------------------------------------------------
 
 /*  №6
-Дан массив со случайным количеством дробных чисел. Из элементов
-исходного массива постройте два новых. В первый должны входить только
-положительные элементы, а во второй только отрицательные элементы;
+Random r = new Random();
+double[] nums = new double[20];
+int posNum = 0;
+int negNum = 0;
+
+for (int i = 0; i < nums.Length; i++)
+{
+    nums[i] = Math.Round(r.NextDouble() * 20 - 10, 1);
+    if (nums[i] > 0) posNum++;
+    if (nums[i] < 0) negNum++;
+}
+
+double[] posNums = new double[posNum];
+double[] negNums = new double[negNum];
+
+foreach (var n in nums)
+{
+    if (n > 0)
+    {
+        posNums[posNum - posNums.Length] = n;
+        posNum++;
+    }
+    else if (n < 0)
+    {
+        negNums[negNum - negNums.Length] = n;
+        negNum++;
+    }
+    
+}
+
+Console.WriteLine("Начальный массив:");
+foreach (var n in nums)
+{
+    Console.Write($"{n} ");
+}
+Console.WriteLine();
+
+Console.WriteLine("Массив положительных значений:");
+foreach (var n in posNums)
+{
+    Console.Write($"{n} ");
+}
+Console.WriteLine();
+
+Console.WriteLine("Массив отрицательных значений:");
+foreach (var n in negNums)
+{
+    Console.Write($"{n} ");
+}
 */

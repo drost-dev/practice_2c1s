@@ -17,3 +17,13 @@ D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\r
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.pdb
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.genruntimeconfig.cache
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ref\ConsoleApp6.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.exe
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.deps.json
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.runtimeconfig.json
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\bin\Debug\net7.0\ConsoleApp6.pdb
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\refint\ConsoleApp6.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.pdb
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ConsoleApp6.genruntimeconfig.cache
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp6\obj\Debug\net7.0\ref\ConsoleApp6.dll
