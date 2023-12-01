@@ -16,41 +16,166 @@ namespace ConsoleApp7;
 
 public class Program
 {
-    List<Task> addTask(List<Task> tasks)
+    static List<Task> addTask(List<Task> tasks)
     {
-        int timestamp = Int32.MaxValue;
-        
-        Task newTask = new Task();
-        
-        Console.Write("Введите название задачи: ");
-        string newTaskName = Console.ReadLine();
-        if (newTaskName != "")
+        try
         {
-            newTask.name = newTaskName;
-        }
-        else
-        {
-            newTask.name = "Безымянная задача";
-        }
+            int timestamp = Int32.MaxValue;
         
-        Console.Write("Введите описание задачи: ");
-        string newTaskDescription = Console.ReadLine();
-        if (newTaskDescription != "")
-        {
-            newTask.desc = newTaskDescription;
-        }
-        else
-        {
-            newTask.desc = "Без описания";
-        }
+            Task newTask = new Task();
         
+            Console.Write("Введите название задачи: ");
+            string newTaskName = Console.ReadLine();
+            if (newTaskName != "")
+            {
+                newTask.name = newTaskName;
+            }
+            else
+            {
+                newTask.name = "Безымянная задача";
+            }
+        
+            Console.Write("Введите описание задачи: ");
+            string newTaskDescription = Console.ReadLine();
+            if (newTaskDescription != "")
+            {
+                newTask.desc = newTaskDescription;
+            }
+            else
+            {
+                newTask.desc = "Без описания";
+            }
+
+            Console.WriteLine("Теперь введите дату и время, до которого вы хотите успеть выполнить задачу");
+            Console.Write("Год: ");
+            int year = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Месяц: ");
+            int month = Convert.ToInt32(Console.ReadLine());
+            Console.Write("День: ");
+            int day = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Час: ");
+            int hour = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Минута: ");
+            int minute = Convert.ToInt32(Console.ReadLine());
+
+            var endDate = new DateTime(year, month, day, hour, minute, 0).ToUniversalTime();
+            long unixTime = ((DateTimeOffset)endDate).ToUnixTimeSeconds();
+
+            newTask.timestamp = unixTime;
+        
+            tasks.Add(newTask);
+
+            Console.WriteLine("Задача добавлена.\n");
+            
+            saveTasks(tasks);
+            
+            return tasks;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Произошла ошибка! Возможно, вы ввели недоступное значение. Попробуйте заново\n" +
+                              $"Код ошибки: {e.Message}");
+            return tasks;
+        }
+    }
+    
+    static void removeTask(List<Task> tasks)
+    {
+        listTasks(tasks);
+
+        while (true)
+        {
+            Console.Write("Введите номер задачи, которую вы хотите удалить (введите 0 для отмены): ");
+            int to_remove_index = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                if (to_remove_index == 0)
+                {
+                    return;
+                }
+                tasks.RemoveAt(to_remove_index-1);
+                Console.WriteLine($"Задача {to_remove_index} успешно удалена.\n");
+                saveTasks(tasks);
+                return;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Такой задачи не существует!");
+            }
+        }
+    }
+
+    static void editTask(List<Task> tasks)
+    {
+        listTasks(tasks);
+
+        while (true)
+        {
+            Console.Write("Введите номер задачи, которую вы хотите отредактировать (введите 0 для отмены): ");
+            int to_edit_index = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                if (to_edit_index == 0)
+                {
+                    return;
+                }
+
+                Console.Write("Выберите, что вы хотите отредактировать:\n" +
+                                  "1 - Название\n" +
+                                  "2 - Описание\n" +
+                                  "3 - Дату\n" +
+                                  "Ваш выбор: ");
+                
+                //добавить эдит задачи
+                
+                
+                tasks.RemoveAt(to_edit_index-1);
+                Console.WriteLine($"Задача {to_edit_index} успешно удалена.\n");
+                saveTasks(tasks);
+                return;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Такой задачи не существует!");
+            }
+        }
+    }
+    
+    static void listTasks(List<Task> tasks)
+    {
+        //добавить выбор на сегодня, завтра и неделю
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            DateTime time = new DateTime(1970, 1, 1);
+            time = time.AddSeconds(tasks[i].timestamp).ToLocalTime();
+            Console.WriteLine($"Задача {i+1}\n" +
+                              $"Название: {tasks[i].name}\n" +
+                              $"Описание: {tasks[i].desc}\n" +
+                              $"До: {time}\n");
+        }
+    }
+
+    static void saveTasks(List<Task> tasks)
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+        
+        string json = JsonSerializer.Serialize(tasks, options);
+        File.WriteAllText("tasks.json", json);
+    }
+
+    static List<Task> loadTasks()
+    {
+        string textJson = File.ReadAllText("tasks.json");
+        List<Task> tasks = JsonSerializer.Deserialize<List<Task>>(textJson);
+
         return tasks;
     }
+    
     static void Main()
     {
-        string text = File.ReadAllText("tasks.json");
-        List<Task> tasks = JsonSerializer.Deserialize<List<Task>>(text);
-        
         /*
         ------------ Ежедневник ------------
 
@@ -84,12 +209,7 @@ public class Program
 
         */
 
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true
-        };
-
-        
+        var tasks = loadTasks();
         
         while (true)
         {
@@ -98,34 +218,40 @@ public class Program
                           "2 - удалить задачу\n" +
                           "3 - редактировать задачу\n" +
                           "4 - просмотреть задачи\n" +
-                          "0 - выйти\n\n");
-            
+                          "0 - выйти\n");
+            Console.Write("Действие: ");
             int choose = Convert.ToInt32(Console.ReadLine());
 
             switch (choose)
             {
                 case 0:
-                    string json = JsonSerializer.Serialize(tasks, options);
-                    File.WriteAllText("tasks.json", json);
+                    Console.Clear();
+                    saveTasks(tasks);
                     return;
                 
                 case 1:
-                    Console.WriteLine(1);
+                    Console.Clear();
+                    tasks = loadTasks();
+                    addTask(tasks);
                     break;
                 
                 case 2:
-                    Console.WriteLine(2);
+                    Console.Clear();
+                    removeTask(tasks);
                     break;
                 
                 case 3:
+                    Console.Clear();
                     Console.WriteLine(3);
                     break;
                 
                 case 4:
-                    Console.WriteLine(4);
+                    Console.Clear();
+                    listTasks(tasks);
                     break;
                 
                 default:
+                    Console.Clear();
                     Console.WriteLine("Такого варианта нет, попробуйте ещё раз");
                     break;
             }
@@ -158,9 +284,6 @@ public class Program
         //Console.WriteLine(json);
         */
 
-        
-        
-        
         /*
         string text = File.ReadAllText("tasks.json");
         var tasks = JsonSerializer.Deserialize<List<Task>>(text);

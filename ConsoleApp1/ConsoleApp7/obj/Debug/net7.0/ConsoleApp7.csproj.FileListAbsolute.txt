@@ -13,3 +13,17 @@ D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\r
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.pdb
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.genruntimeconfig.cache
 D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ref\ConsoleApp7.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\bin\Debug\net7.0\ConsoleApp7.exe
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\bin\Debug\net7.0\ConsoleApp7.deps.json
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\bin\Debug\net7.0\ConsoleApp7.runtimeconfig.json
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\bin\Debug\net7.0\ConsoleApp7.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\bin\Debug\net7.0\ConsoleApp7.pdb
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.AssemblyInfoInputs.cache
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.AssemblyInfo.cs
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.csproj.CoreCompileInputs.cache
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\refint\ConsoleApp7.dll
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.pdb
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ConsoleApp7.genruntimeconfig.cache
+C:\Users\gr622_ezaal\RiderProjects\practice_2c1s\ConsoleApp1\ConsoleApp7\obj\Debug\net7.0\ref\ConsoleApp7.dll

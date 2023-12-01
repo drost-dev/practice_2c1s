@@ -2,5 +2,5 @@
 {
     public string name { get; set; }
     public string desc { get; set; }
-    public int timestamp { get; set; }
+    public long timestamp { get; set; }
 }
