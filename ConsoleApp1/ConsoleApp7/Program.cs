@@ -1,16 +1,7 @@
 ﻿// ReSharper disable CommentTypo
 using System.Text.Json;
 using System.Text;
-
-
-/*
- * https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D0%B8+%D0%B4%D0%B0%D1%82%D1%83+%D0%B2+timestamp+c%23&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D0%B8+%D0%B4%D0%B0%D1%82%D1%83+%D0%B2+timestamp+c%23&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIKCAEQIRgWGB0YHjIKCAIQIRgWGB0YHjIKCAMQIRgWGB0YHjIKCAQQIRgWGB0YHjIKCAUQIRgWGB0YHjIKCAYQIRgWGB0YHjIKCAcQIRgWGB0YHjIKCAgQIRgWGB0YHjIKCAkQIRgWGB0YHtIBCDUxNjFqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
- * https://ru.stackoverflow.com/questions/1088144/%D0%9A%D0%B0%D0%BA-%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D0%B8-%D0%B2%D1%80%D0%B5%D0%BC%D1%8F-%D0%B2-timestamp
- * https://metanit.com/sharp/tutorial/19.1.php
- * https://www.google.com/search?q=timespan+c%23&oq=timespan+&gs_lcrp=EgZjaHJvbWUqDAgAEAAYFBiHAhiABDIMCAAQABgUGIcCGIAEMgwIARAAGBQYhwIYgAQyBggCEEUYOTIMCAMQABhDGIAEGIoFMgwIBBAAGEMYgAQYigUyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgAQyBwgJEAAYgATSAQgzNjE5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
- * https://learn.microsoft.com/ru-ru/dotnet/api/system.timespan?view=net-8.0
- */
-
+using System.Threading.Channels;
 
 namespace ConsoleApp7;
 
@@ -20,8 +11,6 @@ public class Program
     {
         try
         {
-            int timestamp = Int32.MaxValue;
-        
             Task newTask = new Task();
         
             Console.Write("Введите название задачи: ");
@@ -58,13 +47,11 @@ public class Program
             Console.Write("Минута: ");
             int minute = Convert.ToInt32(Console.ReadLine());
 
-            var endDate = new DateTime(year, month, day, hour, minute, 0).ToUniversalTime();
+            var endDate = new DateTime(year, month, day, hour, minute, 0);
             long unixTime = ((DateTimeOffset)endDate).ToUnixTimeSeconds();
-
             newTask.timestamp = unixTime;
-        
-            tasks.Add(newTask);
 
+            tasks.Add(newTask);
             Console.WriteLine("Задача добавлена.\n");
             
             saveTasks(tasks);
@@ -79,80 +66,308 @@ public class Program
         }
     }
     
-    static void removeTask(List<Task> tasks)
+    static void removeTask(List<Task> tasks, List<Task> chosenTasks)
     {
-        listTasks(tasks);
-
         while (true)
         {
-            Console.Write("Введите номер задачи, которую вы хотите удалить (введите 0 для отмены): ");
-            int to_remove_index = Convert.ToInt32(Console.ReadLine());
             try
             {
+                Console.Write("Введите номер задачи, которую вы хотите удалить (введите 0 для отмены): ");
+                int to_remove_index = Convert.ToInt32(Console.ReadLine());
                 if (to_remove_index == 0)
                 {
+                    Console.Clear();
                     return;
                 }
-                tasks.RemoveAt(to_remove_index-1);
+
+                tasks.Remove(chosenTasks[to_remove_index-1]);
+                Console.Clear();
                 Console.WriteLine($"Задача {to_remove_index} успешно удалена.\n");
                 saveTasks(tasks);
                 return;
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("Такой задачи не существует!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Введите целое число!");
             }
         }
     }
 
-    static void editTask(List<Task> tasks)
+    static void editTask(List<Task> tasks, List<Task> chosenTasks)
     {
-        listTasks(tasks);
-
         while (true)
         {
-            Console.Write("Введите номер задачи, которую вы хотите отредактировать (введите 0 для отмены): ");
-            int to_edit_index = Convert.ToInt32(Console.ReadLine());
             try
             {
-                if (to_edit_index == 0)
+                Console.Write("Введите номер задачи, которую вы хотите отредактировать (введите 0 для отмены): ");
+                int to_edit_index = Convert.ToInt32(Console.ReadLine()) - 1;
+                if (to_edit_index + 1 == 0)
                 {
+                    Console.Clear();
                     return;
                 }
+                
+                Console.Clear();
 
                 Console.Write("Выберите, что вы хотите отредактировать:\n" +
-                                  "1 - Название\n" +
-                                  "2 - Описание\n" +
-                                  "3 - Дату\n" +
-                                  "Ваш выбор: ");
+                              "1 - Название\n" +
+                              "2 - Описание\n" +
+                              "3 - Дату\n" +
+                              "Ваш выбор: ");
                 
-                //добавить эдит задачи
+                int to_edit_index_param = Convert.ToInt32(Console.ReadLine());
+                string new_param;
+                Console.Clear();
+                Task t = chosenTasks[to_edit_index];
+                switch (to_edit_index_param)
+                {
+                    case 1:
+                        Console.Write($"Старое название: {chosenTasks[to_edit_index].name}\n" +
+                                          $"Введите новое название: ");
+                        new_param = Console.ReadLine();
+                        
+                        if (new_param != "")
+                        {
+                            tasks[tasks.IndexOf(chosenTasks[to_edit_index])].name = new_param;
+                            //tasks.name = new_param;
+                        }
+                        else
+                        {
+                            tasks[tasks.IndexOf(chosenTasks[to_edit_index])].name = "Безымянная задача";
+                        }
+                        
+                        break;
+                    
+                    case 2:
+                        Console.Write($"Старое описание: {chosenTasks[to_edit_index].desc}\n" +
+                                      $"Введите новое описание: ");
+                        new_param = Console.ReadLine();
+                        
+                        if (new_param != "")
+                        {
+                            tasks[tasks.IndexOf(chosenTasks[to_edit_index])].desc = new_param;
+                        }
+                        else
+                        {
+                            tasks[tasks.IndexOf(chosenTasks[to_edit_index])].desc = "Без описания";
+                        }
+                        
+                        break;
+                    
+                    case 3:
+                        DateTime time = new DateTime(1970, 1, 1);
+                        time = time.AddSeconds(chosenTasks[to_edit_index].timestamp).ToLocalTime();
+                        Console.Write($"Старая дата: {time}\n");
+                        
+                        Console.WriteLine("Введите новую дату и время");
+                        Console.Write("Год: ");
+                        int year = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Месяц: ");
+                        int month = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("День: ");
+                        int day = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Час: ");
+                        int hour = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Минута: ");
+                        int minute = Convert.ToInt32(Console.ReadLine());
+                        
+                        var endDate = new DateTime(year, month, day, hour, minute, 0);
+                        long unixTime = ((DateTimeOffset)endDate).ToUnixTimeSeconds();
+                        tasks[tasks.IndexOf(chosenTasks[to_edit_index])].timestamp = unixTime;
+                        
+                        break;
+                    
+                    default:
+                        Console.WriteLine("Такого варианта нет!");
+                        break;
+                }
                 
-                
-                tasks.RemoveAt(to_edit_index-1);
-                Console.WriteLine($"Задача {to_edit_index} успешно удалена.\n");
+                Console.Clear();
                 saveTasks(tasks);
+                Console.WriteLine("Изменения сохранены.");
                 return;
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("Такой задачи не существует!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Введите целое число!");
             }
         }
     }
     
-    static void listTasks(List<Task> tasks)
-    {
-        //добавить выбор на сегодня, завтра и неделю
-        for (int i = 0; i < tasks.Count; i++)
+    static List<Task> listTasks(List<Task> tasks)
+    { 
+        while (true)
         {
-            DateTime time = new DateTime(1970, 1, 1);
-            time = time.AddSeconds(tasks[i].timestamp).ToLocalTime();
-            Console.WriteLine($"Задача {i+1}\n" +
-                              $"Название: {tasks[i].name}\n" +
-                              $"Описание: {tasks[i].desc}\n" +
-                              $"До: {time}\n");
+            try
+            {
+                List<Task> chosenTasks = new List<Task>();
+                Console.WriteLine("Какие задачи вы хотите выбрать?\n" +
+                                  "1 - на сегодня\n" +
+                                  "2 - на завтра\n" +
+                                  "3 - на неделю\n" +
+                                  "4 - выполненные\n" +
+                                  "5 - невыполненные\n" +
+                                  "6 - все задачи");
+                Console.Write("Ваш выбор: ");
+                int choose = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                
+                var nowDate = DateTime.Now;
+                var todayDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day, 0, 0, 0);
+                var tomorrowDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day+1, 0, 0, 0);
+                
+                long nowInUnixTime = ((DateTimeOffset)nowDate).ToUnixTimeSeconds();
+                long todayInUnixTime = ((DateTimeOffset)todayDate).ToUnixTimeSeconds();
+                long tomorrowInUnixTime = ((DateTimeOffset)tomorrowDate).ToUnixTimeSeconds();
+                
+                switch (choose)
+                {
+                    case 1:
+                        //на сегодня
+                        foreach (var t in tasks)
+                        {
+                            if (t.timestamp >= todayInUnixTime && t.timestamp < tomorrowInUnixTime)
+                            {
+                                chosenTasks.Add(t);
+                            }
+                        }
+
+                        for (int i = 0; i < chosenTasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(chosenTasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {chosenTasks[i].name}\n" +
+                                              $"Описание: {chosenTasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return chosenTasks;
+                    
+                    case 2:
+                        //на завтра
+                        foreach (var t in tasks)
+                        {
+                            if (t.timestamp >= tomorrowInUnixTime && t.timestamp < tomorrowInUnixTime+86400)
+                            {
+                                chosenTasks.Add(t);
+                            }
+                        }
+
+                        for (int i = 0; i < chosenTasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(chosenTasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {chosenTasks[i].name}\n" +
+                                              $"Описание: {chosenTasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return chosenTasks;
+                    
+                    case 3:
+                        //на неделю
+                        foreach (var t in tasks)
+                        {
+                            if (t.timestamp >= todayInUnixTime && t.timestamp < todayInUnixTime+86400*7)
+                            {
+                                chosenTasks.Add(t);
+                            }
+                        }
+
+                        for (int i = 0; i < chosenTasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(chosenTasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {chosenTasks[i].name}\n" +
+                                              $"Описание: {chosenTasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return chosenTasks;
+                    
+                    case 4:
+                        //выполненные
+                        foreach (var t in tasks)
+                        {
+                            if (t.timestamp <= nowInUnixTime)
+                            {
+                                chosenTasks.Add(t);
+                            }
+                        }
+
+                        for (int i = 0; i < chosenTasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(chosenTasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {chosenTasks[i].name}\n" +
+                                              $"Описание: {chosenTasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return chosenTasks;
+                    
+                    case 5:
+                        //невыполненные
+                        foreach (var t in tasks)
+                        {
+                            if (t.timestamp > nowInUnixTime)
+                            {
+                                chosenTasks.Add(t);
+                            }
+                        }
+
+                        for (int i = 0; i < chosenTasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(chosenTasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {chosenTasks[i].name}\n" +
+                                              $"Описание: {chosenTasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return chosenTasks;
+                    
+                    case 6:
+                        for (int i = 0; i < tasks.Count; i++)
+                        {
+                            DateTime time = new DateTime(1970, 1, 1);
+                            time = time.AddSeconds(tasks[i].timestamp).ToLocalTime();
+                            Console.WriteLine($"Задача {i+1}\n" +
+                                              $"Название: {tasks[i].name}\n" +
+                                              $"Описание: {tasks[i].desc}\n" +
+                                              $"До: {time}\n");
+                        }
+
+                        return tasks;
+                }
+
+                return tasks;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Такой задачи не существует!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Введите целое число!");
+            }
         }
+        
+        //      добавить выбор на сегодня, завтра и неделю
+        //           выполненные, невыполненные, все
     }
 
     static void saveTasks(List<Task> tasks)
@@ -203,8 +418,8 @@ public class Program
         Принцип работы:
         постоянно спрашивать у юзера че он хочет (while), 
         хотелки принимать через ввод из консоли,
-        в зависимости от хотелок совершать операции с словарем и json 
-        (прочитать словарь из json'а, прочитать/отредачить словарь,
+        в зависимости от хотелок совершать операции с списком и json 
+        (прочитать список из json'а, прочитать/отредачить список,
         закинуть обратно в json, сохранить, закрыть файл)
 
         */
@@ -219,13 +434,12 @@ public class Program
                           "3 - редактировать задачу\n" +
                           "4 - просмотреть задачи\n" +
                           "0 - выйти\n");
-            Console.Write("Действие: ");
+            Console.Write("Ваш выбор: ");
             int choose = Convert.ToInt32(Console.ReadLine());
 
             switch (choose)
             {
                 case 0:
-                    Console.Clear();
                     saveTasks(tasks);
                     return;
                 
@@ -237,60 +451,27 @@ public class Program
                 
                 case 2:
                     Console.Clear();
-                    removeTask(tasks);
+                    tasks = loadTasks();
+                    removeTask(tasks, listTasks(tasks));
                     break;
                 
                 case 3:
                     Console.Clear();
-                    Console.WriteLine(3);
+                    tasks = loadTasks();
+                    editTask(tasks, listTasks(tasks));
                     break;
                 
                 case 4:
                     Console.Clear();
+                    tasks = loadTasks();
                     listTasks(tasks);
                     break;
                 
                 default:
                     Console.Clear();
-                    Console.WriteLine("Такого варианта нет, попробуйте ещё раз");
+                    Console.WriteLine("Такого варианта нет, попробуйте ещё раз.");
                     break;
             }
         }
-
-        /*
-        Task task1 = new Task();
-        task1.name = "TestTask1";
-        task1.desc = "It is a test task, created for debugging";
-        task1.timestamp = 1701369613;
-
-        Task task2 = new Task();
-        task2.name = "TestTask2";
-        task2.desc = "It is another test task 2, created for debugging";
-        task2.timestamp = 1701366613;
-
-        List<Task> tasks = new List<Task>();
-        tasks.Add(task1);
-        tasks.Add(task2);
-
-        foreach (var t in tasks)
-        {
-            Console.WriteLine(t.name);
-            Console.WriteLine(t.desc);
-            Console.WriteLine(t.timestamp);
-        }
-        
-        string json = JsonSerializer.Serialize(tasks, options);
-        File.WriteAllText("tasks.json", json);
-        //Console.WriteLine(json);
-        */
-
-        /*
-        string text = File.ReadAllText("tasks.json");
-        var tasks = JsonSerializer.Deserialize<List<Task>>(text);
-        foreach (var t in tasks)
-        {
-            Console.WriteLine(t.name);
-        }
-        */
     }
 }
