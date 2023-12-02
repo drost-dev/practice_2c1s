@@ -1,5 +1,4 @@
-﻿// ReSharper disable CommentTypo
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text;
 using System.Threading.Channels;
 
@@ -7,7 +6,7 @@ namespace ConsoleApp7;
 
 public class Program
 {
-    static List<Task> addTask(List<Task> tasks)
+    static void addTask(List<Task> tasks)
     {
         try
         {
@@ -55,14 +54,11 @@ public class Program
             Console.WriteLine("Задача добавлена.\n");
             
             saveTasks(tasks);
-            
-            return tasks;
         }
         catch (Exception e)
         {
             Console.WriteLine($"Произошла ошибка! Возможно, вы ввели недоступное значение. Попробуйте заново\n" +
                               $"Код ошибки: {e.Message}");
-            return tasks;
         }
     }
     
@@ -133,7 +129,6 @@ public class Program
                         if (new_param != "")
                         {
                             tasks[tasks.IndexOf(chosenTasks[to_edit_index])].name = new_param;
-                            //tasks.name = new_param;
                         }
                         else
                         {
@@ -231,7 +226,6 @@ public class Program
                 switch (choose)
                 {
                     case 1:
-                        //на сегодня
                         foreach (var t in tasks)
                         {
                             if (t.timestamp >= todayInUnixTime && t.timestamp < tomorrowInUnixTime)
@@ -253,7 +247,6 @@ public class Program
                         return chosenTasks;
                     
                     case 2:
-                        //на завтра
                         foreach (var t in tasks)
                         {
                             if (t.timestamp >= tomorrowInUnixTime && t.timestamp < tomorrowInUnixTime+86400)
@@ -275,7 +268,6 @@ public class Program
                         return chosenTasks;
                     
                     case 3:
-                        //на неделю
                         foreach (var t in tasks)
                         {
                             if (t.timestamp >= todayInUnixTime && t.timestamp < todayInUnixTime+86400*7)
@@ -297,7 +289,6 @@ public class Program
                         return chosenTasks;
                     
                     case 4:
-                        //выполненные
                         foreach (var t in tasks)
                         {
                             if (t.timestamp <= nowInUnixTime)
@@ -319,7 +310,6 @@ public class Program
                         return chosenTasks;
                     
                     case 5:
-                        //невыполненные
                         foreach (var t in tasks)
                         {
                             if (t.timestamp > nowInUnixTime)
@@ -365,9 +355,6 @@ public class Program
                 Console.WriteLine("Введите целое число!");
             }
         }
-        
-        //      добавить выбор на сегодня, завтра и неделю
-        //           выполненные, невыполненные, все
     }
 
     static void saveTasks(List<Task> tasks)
@@ -391,86 +378,64 @@ public class Program
     
     static void Main()
     {
-        /*
-        ------------ Ежедневник ------------
-
-        Функции:
-        1. Добавлять задачи
-        2. Удалять задачи
-        3. Редактировать
-        4. Просматривать задачи
-            4.1. По временному промежутку
-                4.1.1. На сегодня
-                4.1.2. На завтра
-                4.1.3. На неделю
-            4.2. По статусу
-                4.2.1. Все
-                4.2.2. Невыполненные
-                4.2.3. Выполненые
-
-        Структура задачи (json):
-        {
-            название: "...",
-            описание: "...",
-            дата: timestamp
-        }
-
-        Принцип работы:
-        постоянно спрашивать у юзера че он хочет (while), 
-        хотелки принимать через ввод из консоли,
-        в зависимости от хотелок совершать операции с списком и json 
-        (прочитать список из json'а, прочитать/отредачить список,
-        закинуть обратно в json, сохранить, закрыть файл)
-
-        */
-
         var tasks = loadTasks();
         
         while (true)
         {
-            Console.Write("Что вы хотите сделать?\n" +
-                          "1 - добавить задачу\n" +
-                          "2 - удалить задачу\n" +
-                          "3 - редактировать задачу\n" +
-                          "4 - просмотреть задачи\n" +
-                          "0 - выйти\n");
-            Console.Write("Ваш выбор: ");
-            int choose = Convert.ToInt32(Console.ReadLine());
-
-            switch (choose)
+            try
             {
-                case 0:
-                    saveTasks(tasks);
-                    return;
+                Console.Write("Что вы хотите сделать?\n" +
+                              "1 - добавить задачу\n" +
+                              "2 - удалить задачу\n" +
+                              "3 - редактировать задачу\n" +
+                              "4 - просмотреть задачи\n" +
+                              "0 - выйти\n");
+                Console.Write("Ваш выбор: ");
+                int choose = Convert.ToInt32(Console.ReadLine());
+
+                switch (choose)
+                {
+                    case 0:
+                        saveTasks(tasks);
+                        return;
                 
-                case 1:
-                    Console.Clear();
-                    tasks = loadTasks();
-                    addTask(tasks);
-                    break;
+                    case 1:
+                        Console.Clear();
+                        tasks = loadTasks();
+                        addTask(tasks);
+                        break;
                 
-                case 2:
-                    Console.Clear();
-                    tasks = loadTasks();
-                    removeTask(tasks, listTasks(tasks));
-                    break;
+                    case 2:
+                        Console.Clear();
+                        tasks = loadTasks();
+                        removeTask(tasks, listTasks(tasks));
+                        break;
                 
-                case 3:
-                    Console.Clear();
-                    tasks = loadTasks();
-                    editTask(tasks, listTasks(tasks));
-                    break;
+                    case 3:
+                        Console.Clear();
+                        tasks = loadTasks();
+                        editTask(tasks, listTasks(tasks));
+                        break;
                 
-                case 4:
-                    Console.Clear();
-                    tasks = loadTasks();
-                    listTasks(tasks);
-                    break;
+                    case 4:
+                        Console.Clear();
+                        tasks = loadTasks();
+                        listTasks(tasks);
+                        break;
                 
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Такого варианта нет, попробуйте ещё раз.");
-                    break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Такого варианта нет, попробуйте ещё раз.");
+                        break;
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Такой задачи не существует!");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Введите целое число!");
             }
         }
     }
