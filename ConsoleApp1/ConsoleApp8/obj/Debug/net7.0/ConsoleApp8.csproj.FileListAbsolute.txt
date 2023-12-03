@@ -1,0 +1,15 @@
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\bin\Debug\net7.0\ConsoleApp8.exe
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\bin\Debug\net7.0\ConsoleApp8.deps.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\bin\Debug\net7.0\ConsoleApp8.runtimeconfig.json
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\bin\Debug\net7.0\ConsoleApp8.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\bin\Debug\net7.0\ConsoleApp8.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.csproj.AssemblyReference.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.GeneratedMSBuildEditorConfig.editorconfig
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.AssemblyInfoInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.AssemblyInfo.cs
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.csproj.CoreCompileInputs.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\refint\ConsoleApp8.dll
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.pdb
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ConsoleApp8.genruntimeconfig.cache
+D:\Rider\Rider Projects\practice_2c1s\ConsoleApp1\ConsoleApp8\obj\Debug\net7.0\ref\ConsoleApp8.dll
