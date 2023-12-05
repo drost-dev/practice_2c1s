@@ -57,6 +57,13 @@ public class Program
         string jsonString_coords = reader.ReadToEnd();
         response_coords.Close();
         var json_coords = JsonObject.Parse(jsonString_coords);
+        
+        if (json_coords["response"]["GeoObjectCollection"]["metaDataProperty"]["GeocoderResponseMetaData"]["found"].ToString() == "0")
+        {
+            Console.WriteLine("Город не найден!");
+            return;
+        }
+
         var coords = json_coords["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].ToString().Split(' ');
 
         var comps =
@@ -73,7 +80,7 @@ public class Program
         string jsonString_weather = reader.ReadToEnd();
         response_weather.Close();
         var json_weather = JsonObject.Parse(jsonString_weather);
-        
+
         var p = json_weather["forecasts"][0]["parts"];
         Console.WriteLine($"Погода для города {cityNameRU}:\n" +
                           $"\tНочью:\n" +
