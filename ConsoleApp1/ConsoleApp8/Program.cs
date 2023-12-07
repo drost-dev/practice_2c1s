@@ -11,7 +11,7 @@ public class Program
 {
     static void Main(string[] args)
     {
-        string city = "";
+        string city;
         
         if (args.Length == 0)
         {
@@ -45,36 +45,32 @@ public class Program
 
             city = args[0];
         }
-        
-        string cityNameRU = "";
-        
-        HttpWebRequest request_coords = (HttpWebRequest)WebRequest.Create($"https://geocode-maps.yandex.ru/1.x/?apikey=532aec3d-e0c7-4454-961b-f815686ad07f&geocode={city}&format=json");
-        request_coords.Method = "GET";
-        request_coords.Headers.Add("Content-type", "application/json; charset=utf-8");
-        HttpWebResponse response_coords = (HttpWebResponse)request_coords.GetResponse();
-        Stream stream = response_coords.GetResponseStream();
-        StreamReader reader = new StreamReader(stream);
-        string jsonString_coords = reader.ReadToEnd();
-        response_coords.Close();
-        var json_coords = JsonObject.Parse(jsonString_coords);
-        var coords = json_coords["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].ToString().Split(' ');
 
-        var comps =
-            json_coords["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]
-                ["GeocoderMetaData"]["Address"]["Components"];
-        cityNameRU = comps[comps.AsArray().Count-1]["name"].ToString();
+        WebRequest reqCoords = WebRequest.Create($"https://geocode-maps.yandex.ru/1.x/?apikey=532aec3d-e0c7-4454-961b-f815686ad07f&geocode={city}&format=json");
+        WebResponse respCoords = reqCoords.GetResponse();
+        Stream stream = respCoords.GetResponseStream();
+        StreamReader sr = new StreamReader(stream);
+        string jsonStringCoords = sr.ReadToEnd();
+        respCoords.Close();
         
-        HttpWebRequest request_weather = (HttpWebRequest)WebRequest.Create($"https://api.weather.yandex.ru/v2/forecast?lat={coords[1]}&lon={coords[0]}&extra=true");
-        request_weather.Method = "GET";
-        request_weather.Headers.Add("X-Yandex-API-Key", "73400b68-9299-4e43-9068-8da1156c96ed");
-        HttpWebResponse response_weather = (HttpWebResponse)request_weather.GetResponse();
-        stream = response_weather.GetResponseStream();
-        reader = new StreamReader(stream);
-        string jsonString_weather = reader.ReadToEnd();
-        response_weather.Close();
-        var json_weather = JsonObject.Parse(jsonString_weather);
+        var jsonCoords = JsonObject.Parse(jsonStringCoords);
+        var coords = jsonCoords["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].ToString().Split(' ');
+        var comps = jsonCoords["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["Components"];
+        string cityNameRU = comps[comps.AsArray().Count - 1]["name"].ToString();
         
-        var p = json_weather["forecasts"][0]["parts"];
+        WebRequest reqWeather = WebRequest.Create($"https://api.weather.yandex.ru/v2/forecast?lat={coords[1]}&lon={coords[0]}&extra=true");
+        reqWeather.Headers.Add("X-Yandex-API-Key", "73400b68-9299-4e43-9068-8da1156c96ed");
+        WebResponse respWeather = reqWeather.GetResponse();
+        stream = respWeather.GetResponseStream();
+        sr = new StreamReader(stream);
+        string jsonStringWeather = sr.ReadToEnd();
+        respWeather.Close();
+        
+        var jsonWeather = JsonObject.Parse(jsonStringWeather);
+        var p = jsonWeather["forecasts"][0]["parts"];
+        
+        
+        
         Console.WriteLine($"Погода для города {cityNameRU}:\n" +
                           $"\tНочью:\n" +
                           $"В среднем {p["night"]["temp_avg"]}°C (от {p["night"]["temp_min"]}°C до {p["night"]["temp_max"]}°C)\n" +
@@ -90,7 +86,6 @@ public class Program
                           $"\n" +
                           $"\tВечером:\n" +
                           $"В среднем {p["evening"]["temp_avg"]}°C (от {p["evening"]["temp_min"]}°C до {p["evening"]["temp_max"]}°C)\n" +
-                          $"По ощущениям {p["evening"]["feels_like"]}°C\n" +
-                          $"\n");
+                          $"По ощущениям {p["evening"]["feels_like"]}°C");
     }
 }
