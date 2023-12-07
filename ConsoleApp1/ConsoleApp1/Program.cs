@@ -76,7 +76,7 @@ static int[] filler(int a, int b)
     return arr;
 }
 
-int[] arr = filler( -10, 10);
+int[] arr = filler(-10, 10);
 foreach (int element in arr)
 {
     Console.Write($"{element} ");   

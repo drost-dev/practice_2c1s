@@ -1,6 +1,6 @@
 ﻿Console.WriteLine("uncomment code");
 
-/*  №1 */
+/*  №1
 StreamWriter output = new StreamWriter("output.txt", true);
 string[] lines = File.ReadAllLines("input.txt");
 string[] luckyNums = lines[0].Split(' ');
@@ -33,7 +33,7 @@ for (int i = 2; i <= ticketAmount; i++)
     winNums = 0;
 }
 output.Close();
-/**/
+*/
 
 //-----------------------------------------------------------------------------
 
